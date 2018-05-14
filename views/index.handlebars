@@ -1,0 +1,38 @@
+<h1>Eet-de-burger</h1>
+
+
+<form action="/" method='POST'>
+  What kind of burger would you like?<br>
+  <textarea type="text" name="userBurger"></textarea>
+  <button type="submit">Submit</button>
+</form>
+
+<h2>Sooooo hungry for burgers..</h2>
+
+<ul>
+  {{#each foodObj}}
+    {{#unless this.devoured}}
+      <div class='col-md-9 text-center'>
+        <div>{{this.id}}. {{this.burger_name}}</div>
+      </div>
+    {{/unless}}
+  {{/each}}
+</ul>
+
+<h2>I already nom'd these burgers</h2>
+
+<ul>
+  {{#each foodObj}}
+    {{#if this.devoured}}
+        <div class='col-md-9 text-center'>
+          <div>{{this.id}}. {{this.burger_name}}</div>
+        </div>
+        {{#each burger}} {{#unless this.devoured}}
+          <form action='/{{this.id}}?_method=PUT' method='POST'>
+              <input name='devoured' value='true'>
+              <button class="eatme" type="submit">{{this.burger_name}}</button>
+          </form>
+        {{/unless}} {{/each}}
+    {{/if}}
+  {{/each}}
+</ul>
